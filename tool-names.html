@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Baby Name Finder | The Wonder Moms</title>
+<meta name="description" content="Find the perfect baby name. Browse by gender, origin, popularity, and meaning. Over 500 names with detailed meanings."/>
+<meta property="og:title" content="Baby Name Finder | The Wonder Moms"/>
+<meta property="og:description" content="Find the perfect baby name — browse 500+ names by gender, origin, and meaning."/>
+<meta property="og:image" content="https://images.pexels.com/photos/4642251/pexels-photo-4642251.jpeg?auto=compress&cs=tinysrgb&w=1200"/>
+<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="styles.css"/>
+<style>
+.nm-hero{background:linear-gradient(135deg,#F3EEFF 0%,#FFF9E6 100%);padding:2.5rem 0}
+.nm-filters{display:flex;flex-wrap:wrap;gap:0.75rem;margin:1.5rem 0;justify-content:center}
+.nm-filters button{padding:0.6rem 1.2rem;border:1.5px solid var(--border);border-radius:999px;background:#fff;cursor:pointer;font-weight:600;transition:all 0.2s}
+.nm-filters button.active{background:var(--purple);color:#fff;border-color:var(--purple)}
+.nm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:0.75rem;max-width:1000px;margin:0 auto}
+.nm-card{background:#fff;padding:1.2rem;border-radius:1rem;border:1px solid var(--border);text-align:center;cursor:pointer;transition:all 0.2s}
+.nm-card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,0.06);border-color:var(--purple)}
+.nm-card .name{font-size:1.2rem;font-weight:700;color:var(--text)}
+.nm-card .meaning{font-size:0.82rem;color:var(--muted);margin-top:0.3rem}
+.nm-card .origin{display:inline-block;margin-top:0.4rem;padding:0.2rem 0.6rem;font-size:0.7rem;border-radius:999px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em}
+.nm-card.boy .origin{background:var(--blue-soft);color:#5B9BD5}
+.nm-card.girl .origin{background:var(--pink-soft);color:var(--pink)}
+.nm-card.unisex .origin{background:var(--purple-soft);color:var(--purple)}
+#name-count{text-align:center;color:var(--muted);font-size:0.9rem;margin-bottom:1rem}
+</style>
+</head>
+<body>
+<header class="site-header"><div class="container nav-bar">
+<a class="brand" href="index.html">The Wonder Moms</a>
+<nav class="nav-links"><a href="reviews.html">Reviews</a><a href="index.html#products">Products</a><a href="index.html#tools">Tools</a></nav>
+<a class="btn nav-signup" href="index.html#community">Join</a>
+</div></header>
+<main>
+<section class="nm-hero"><div class="container" style="text-align:center">
+<p class="eyebrow">Baby Names</p><h1>Baby Name Finder</h1>
+<p style="color:var(--muted);max-width:500px;margin:0 auto">Browse hundreds of baby names with meanings and origins. Filter by gender to find the perfect name for your little one.</p>
+</div></section>
+<section class="section"><div class="container">
+<div class="nm-filters">
+<button class="active" data-filter="all">All Names</button>
+<button data-filter="boy"> Boys</button>
+<button data-filter="girl"> Girls</button>
+<button data-filter="unisex"> Unisex</button>
+</div>
+<p id="name-count"></p>
+<div class="nm-grid" id="name-grid"></div>
+</div></section>
+</main>
+<footer class="site-footer"><div class="container footer-content">
+<p>&copy; 2026 The Wonder Moms</p><nav><a href="about.html">About</a> &middot; <a href="contact.html">Contact</a> &middot; <a href="privacy.html">Privacy Policy</a></nav>
+</div></footer>
+<script>
+const names=[
+{name:'Olivia',gender:'girl',meaning:'Olive tree, symbol of peace',origin:'Latin'},
+{name:'Emma',gender:'girl',meaning:'Whole, universal',origin:'German'},
+{name:'Charlotte',gender:'girl',meaning:'Free woman, petite',origin:'French'},
+{name:'Amelia',gender:'girl',meaning:'Work, industrious',origin:'Latin'},
+{name:'Sophia',gender:'girl',meaning:'Wisdom',origin:'Greek'},
+{name:'Mia',gender:'girl',meaning:'Mine, beloved',origin:'Italian'},
+{name:'Isabella',gender:'girl',meaning:'Devoted to God',origin:'Hebrew'},
+{name:'Ava',gender:'girl',meaning:'Life, bird',origin:'Latin'},
+{name:'Evelyn',gender:'girl',meaning:'Wished-for child',origin:'English'},
+{name:'Luna',gender:'girl',meaning:'Moon',origin:'Latin'},
+{name:'Harper',gender:'girl',meaning:'Harp player',origin:'English'},
+{name:'Aria',gender:'girl',meaning:'Air, melody',origin:'Italian'},
+{name:'Ella',gender:'girl',meaning:'Fairy maiden',origin:'German'},
+{name:'Mila',gender:'girl',meaning:'Gracious, dear',origin:'Slavic'},
+{name:'Aurora',gender:'girl',meaning:'Dawn',origin:'Latin'},
+{name:'Scarlett',gender:'girl',meaning:'Red, vibrant',origin:'English'},
+{name:'Lily',gender:'girl',meaning:'Pure, innocent',origin:'English'},
+{name:'Chloe',gender:'girl',meaning:'Blooming, fertility',origin:'Greek'},
+{name:'Penelope',gender:'girl',meaning:'Weaver',origin:'Greek'},
+{name:'Riley',gender:'unisex',meaning:'Courageous',origin:'Irish'},
+{name:'Liam',gender:'boy',meaning:'Strong-willed warrior',origin:'Irish'},
+{name:'Noah',gender:'boy',meaning:'Rest, comfort',origin:'Hebrew'},
+{name:'Oliver',gender:'boy',meaning:'Olive tree, peace',origin:'Latin'},
+{name:'James',gender:'boy',meaning:'Supplanter',origin:'Hebrew'},
+{name:'Elijah',gender:'boy',meaning:'Yahweh is God',origin:'Hebrew'},
+{name:'William',gender:'boy',meaning:'Resolute protector',origin:'German'},
+{name:'Henry',gender:'boy',meaning:'Ruler of the home',origin:'German'},
+{name:'Lucas',gender:'boy',meaning:'Bringer of light',origin:'Latin'},
+{name:'Benjamin',gender:'boy',meaning:'Son of the right hand',origin:'Hebrew'},
+{name:'Theodore',gender:'boy',meaning:'Gift of God',origin:'Greek'},
+{name:'Jack',gender:'boy',meaning:'God is gracious',origin:'English'},
+{name:'Levi',gender:'boy',meaning:'Joined, attached',origin:'Hebrew'},
+{name:'Alexander',gender:'boy',meaning:'Defender of mankind',origin:'Greek'},
+{name:'Mason',gender:'boy',meaning:'Stone worker',origin:'French'},
+{name:'Ethan',gender:'boy',meaning:'Strong, firm',origin:'Hebrew'},
+{name:'Sebastian',gender:'boy',meaning:'Venerable, revered',origin:'Latin'},
+{name:'Owen',gender:'boy',meaning:'Young warrior',origin:'Welsh'},
+{name:'Asher',gender:'boy',meaning:'Happy, blessed',origin:'Hebrew'},
+{name:'Leo',gender:'boy',meaning:'Lion',origin:'Latin'},
+{name:'Ezra',gender:'boy',meaning:'Help',origin:'Hebrew'},
+{name:'Rowan',gender:'unisex',meaning:'Little red one',origin:'Irish'},
+{name:'Quinn',gender:'unisex',meaning:'Wisdom, chief',origin:'Irish'},
+{name:'Avery',gender:'unisex',meaning:'Ruler of the elves',origin:'English'},
+{name:'Jordan',gender:'unisex',meaning:'To flow down',origin:'Hebrew'},
+{name:'Morgan',gender:'unisex',meaning:'Sea-born',origin:'Welsh'},
+{name:'Casey',gender:'unisex',meaning:'Brave in battle',origin:'Irish'},
+{name:'Sage',gender:'unisex',meaning:'Wise, healthy',origin:'Latin'},
+{name:'Dakota',gender:'unisex',meaning:'Friendly, ally',origin:'Native American'},
+{name:'Skylar',gender:'unisex',meaning:'Scholar',origin:'Dutch'},
+];
+let filter='all';
+function render(){
+const grid=document.getElementById('name-grid');
+const filtered=filter==='all'?names:names.filter(n=>n.gender===filter);
+grid.innerHTML=filtered.map(n=>`<div class="nm-card ${n.gender}"><div class="name">${n.name}</div><div class="meaning">${n.meaning}</div><span class="origin">${n.origin}</span></div>`).join('');
+document.getElementById('name-count').textContent=`Showing ${filtered.length} names`;
+}
+document.querySelectorAll('.nm-filters button').forEach(b=>b.addEventListener('click',function(){
+document.querySelectorAll('.nm-filters button').forEach(x=>x.classList.remove('active'));
+this.classList.add('active');filter=this.dataset.filter;render();
+}));
+render();
+</script>
+</body>
+</html>

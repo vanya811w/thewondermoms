@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Baby Feeding Tracker | The Wonder Moms</title>
+<meta name="description" content="Track your baby's feeding schedule. Log breastfeeding, bottle feeding, and solid food times."/>
+<meta property="og:title" content="Baby Feeding Tracker | The Wonder Moms"/>
+<meta property="og:description" content="Free baby feeding tracker — log feeds, track patterns, and establish routines."/>
+<meta property="og:image" content="https://images.pexels.com/photos/7282819/pexels-photo-7282819.jpeg?auto=compress&cs=tinysrgb&w=1200"/>
+<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="styles.css"/>
+<style>
+.ft-hero{background:linear-gradient(135deg,#FFF0EE 0%,#FFF9E6 100%);padding:2.5rem 0}
+.ft-layout{display:grid;grid-template-columns:1fr 1.2fr;gap:2rem;max-width:1100px;margin:0 auto}
+.ft-log{background:#fff;border-radius:1.5rem;padding:2rem;box-shadow:0 8px 32px rgba(0,0,0,0.08);border:2px solid var(--coral)}
+.ft-log button{padding:0.8rem 1.5rem;border:none;border-radius:999px;font-weight:700;cursor:pointer;font-size:0.95rem;margin:3px}
+.ft-log .btn-left{background:var(--coral-soft);color:var(--coral)}
+.ft-log .btn-right{background:var(--teal-soft);color:var(--teal)}
+.ft-log .btn-solid{background:var(--yellow-soft);color:#A67C00}
+.ft-log .log-entry{display:flex;justify-content:space-between;padding:0.7rem;border-bottom:1px solid var(--border);font-size:0.9rem}
+.ft-summary{background:#fff;border-radius:1.5rem;padding:2rem;box-shadow:0 8px 32px rgba(0,0,0,0.06);border:1px solid var(--border)}
+.ft-stats{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem}
+.ft-stat{text-align:center;padding:1.5rem;border-radius:1rem}
+.ft-stat .num{font-size:2rem;font-weight:800}
+@media(max-width:800px){.ft-layout{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="site-header"><div class="container nav-bar">
+<a class="brand" href="index.html">The Wonder Moms</a>
+<nav class="nav-links"><a href="reviews.html">Reviews</a><a href="index.html#products">Products</a><a href="index.html#tools">Tools</a></nav>
+<a class="btn nav-signup" href="index.html#community">Join</a>
+</div></header>
+<main>
+<section class="ft-hero"><div class="container" style="text-align:center">
+<p class="eyebrow">Baby Tracker</p><h1>Baby Feeding Tracker</h1>
+<p style="color:var(--muted);max-width:500px;margin:0 auto">Log your baby's feeds throughout the day to track patterns and establish healthy feeding routines.</p>
+</div></section>
+<section class="section"><div class="container"><div class="ft-layout">
+<div class="ft-log">
+<h2 style="margin-top:0">Log a Feed</h2>
+<div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1rem">
+<button id="btn-left" class="btn-left"> Left Breast</button>
+<button id="btn-right" class="btn-right"> Right Breast</button>
+<button id="btn-bottle" class="btn-left" style="background:var(--purple-soft);color:var(--purple)"> Bottle</button>
+<button id="btn-solid" class="btn-solid"> Solid Food</button>
+</div>
+<div style="margin-top:0.5rem"><button id="btn-undo" style="background:#eee;border:none;border-radius:999px;padding:0.5rem 1rem;cursor:pointer"> Undo Last</button><button id="btn-clear" style="background:#eee;border:none;border-radius:999px;padding:0.5rem 1rem;cursor:pointer;margin-left:0.5rem"> Reset</button></div>
+<div id="feed-log" style="margin-top:1.5rem;max-height:400px;overflow-y:auto"><p style="color:var(--muted);text-align:center">No feeds logged yet today. Start tracking!</p></div>
+</div>
+<div class="ft-summary">
+<h2 style="margin-top:0">Today's Summary</h2>
+<div class="ft-stats">
+<div class="ft-stat" style="background:var(--coral-soft)"><div class="num" id="total-feeds" style="color:var(--coral)">0</div><div style="color:var(--muted);font-weight:600">Total Feeds</div></div>
+<div class="ft-stat" style="background:var(--teal-soft)"><div class="num" id="last-feed" style="color:var(--teal)">--</div><div style="color:var(--muted);font-weight:600">Last Feed</div></div>
+</div>
+<div style="margin-top:1.5rem">
+<h3>Feeding Guide by Age</h3>
+<ul style="color:var(--muted);line-height:1.8">
+<li><strong>Newborn (0-1m):</strong> 8-12 feeds/day, every 2-3 hours</li>
+<li><strong>1-3 months:</strong> 7-9 feeds/day, every 2.5-3.5 hours</li>
+<li><strong>3-6 months:</strong> 5-7 feeds/day, every 3-4 hours</li>
+<li><strong>6-9 months:</strong> 4-6 feeds/day + 1-2 solid meals</li>
+<li><strong>9-12 months:</strong> 3-5 feeds/day + 2-3 solid meals</li>
+</ul>
+</div>
+</div>
+</div></div></section>
+</main>
+<footer class="site-footer"><div class="container footer-content">
+<p>&copy; 2026 The Wonder Moms</p><nav><a href="about.html">About</a> &middot; <a href="contact.html">Contact</a> &middot; <a href="privacy.html">Privacy Policy</a></nav>
+</div></footer>
+<script>
+let feeds=[];
+function addFeed(type){
+const now=new Date();
+feeds.push({type,time:now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})});
+render();
+}
+function render(){
+const log=document.getElementById('feed-log');
+if(feeds.length===0){log.innerHTML='<p style="color:var(--muted);text-align:center">No feeds logged yet today. Start tracking!</p>';}
+else{log.innerHTML=feeds.map((f,i)=>`<div class="log-entry"><span>${f.type}</span><span style="color:var(--muted)">${f.time}</span></div>`).reverse().join('');}
+document.getElementById('total-feeds').textContent=feeds.length;
+document.getElementById('last-feed').textContent=feeds.length>0?feeds[feeds.length-1].time:'--';
+}
+document.getElementById('btn-left').addEventListener('click',()=>addFeed(' Left Breast'));
+document.getElementById('btn-right').addEventListener('click',()=>addFeed(' Right Breast'));
+document.getElementById('btn-bottle').addEventListener('click',()=>addFeed(' Bottle (Formula)'));
+document.getElementById('btn-solid').addEventListener('click',()=>addFeed(' Solid Food'));
+document.getElementById('btn-undo').addEventListener('click',()=>{feeds.pop();render();});
+document.getElementById('btn-clear').addEventListener('click',()=>{feeds=[];render();});
+</script>
+</body>
+</html>

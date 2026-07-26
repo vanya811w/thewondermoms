@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Due Date Calculator — Estimate Your Baby's Arrival | The Wonder Moms</title>
+<meta name="description" content="Use our free pregnancy due date calculator based on Naegele's rule. Get your estimated due date, conception window, trimester dates, and week-by-week pregnancy timeline."/>
+<meta property="og:title" content="Free Due Date Calculator | The Wonder Moms"/>
+<meta property="og:description" content="Calculate your estimated due date, conception window, and full pregnancy timeline."/>
+<meta property="og:image" content="https://images.pexels.com/photos/4642251/pexels-photo-4642251.jpeg?auto=compress&cs=tinysrgb&w=1200"/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://thewondermoms.com/tool-duedate.html"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Free Due Date Calculator | The Wonder Moms"/>
+<meta name="twitter:description" content="Estimate your due date and get your full pregnancy timeline."/>
+<meta name="twitter:image" content="https://images.pexels.com/photos/4642251/pexels-photo-4642251.jpeg?auto=compress&cs=tinysrgb&w=1200"/>
+<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Due Date Calculator","description":"Calculate your estimated due date using your last menstrual period.","applicationCategory":"HealthApplication","url":"https://thewondermoms.com/tool-duedate.html"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="styles.css"/>
+<style>
+.dd-hero{background:linear-gradient(135deg,#FFE8E5 0%,#FDE8FF 50%,#E8F8FF 100%);padding:2.5rem 0 1.5rem}
+.dd-layout{display:grid;grid-template-columns:1fr 1fr;gap:2rem;max-width:1100px;margin:0 auto}
+.dd-calc{background:#fff;border-radius:1.5rem;padding:2rem;box-shadow:0 8px 32px rgba(0,0,0,0.08);border:2px solid var(--coral)}
+.dd-calc label{display:block;font-weight:700;margin-bottom:0.5rem;color:var(--text);font-size:0.95rem}
+.dd-calc input[type="date"]{width:100%;padding:1rem;border:2px solid var(--border);border-radius:999px;font-family:inherit;font-size:1.05rem;transition:border-color 0.2s}
+.dd-calc input[type="date"]:focus{outline:none;border-color:var(--coral)}
+.dd-calc .calc-methods{display:flex;gap:0.5rem;margin:1rem 0;flex-wrap:wrap}
+.dd-calc .method-btn{padding:0.5rem 1rem;border:1.5px solid var(--border);border-radius:999px;background:#fff;cursor:pointer;font-size:0.82rem;font-weight:600;transition:all 0.2s}
+.dd-calc .method-btn.active{background:var(--coral);color:#fff;border-color:var(--coral)}
+.dd-result{background:linear-gradient(135deg,var(--coral-soft),var(--yellow-soft));border-radius:1rem;padding:1.5rem;text-align:center;display:none;margin-top:1.5rem}
+.dd-result.show{display:block}
+.dd-result .big-date{font-size:2.2rem;font-weight:800;color:var(--coral);line-height:1.2}
+.dd-result .meta-info{color:var(--muted);font-size:0.95rem;margin-top:0.3rem}
+.dd-timeline{display:grid;gap:0.75rem;margin-top:1rem}
+.dd-timeline .tl-row{display:flex;justify-content:space-between;padding:0.8rem 1rem;background:#fff;border-radius:0.75rem;border:1px solid var(--border);font-size:0.9rem}
+.tl-row strong{color:var(--text)}
+.dd-info{background:#fff;border-radius:1.5rem;padding:2rem;box-shadow:0 8px 32px rgba(0,0,0,0.06);border:1px solid var(--border)}
+.dd-info h2{color:var(--text);margin-top:2rem}
+.dd-info h2:first-child{margin-top:0}
+.dd-info h3{color:var(--coral);font-size:1.1rem;margin:1.5rem 0 0.5rem}
+.dd-info p,.dd-info li{color:var(--muted);line-height:1.75}
+.dd-info .tri-box{padding:1.2rem;border-radius:1rem;margin:1rem 0}
+.tri-1st{background:var(--mint-soft);border-left:4px solid var(--teal)}
+.tri-2nd{background:var(--yellow-soft);border-left:4px solid var(--yellow-dark)}
+.tri-3rd{background:var(--coral-soft);border-left:4px solid var(--coral)}
+.faq-item{margin-bottom:1.2rem}
+.faq-item h4{font-weight:700;margin-bottom:0.3rem;color:var(--text)}
+@media(max-width:800px){.dd-layout{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="site-header"><div class="container nav-bar">
+<a class="brand" href="index.html">The Wonder Moms</a>
+<nav class="nav-links"><a href="reviews.html">Reviews</a><a href="index.html#products">Products</a><a href="index.html#tools">Tools</a><a href="index.html#topics">Topics</a></nav>
+<a class="btn nav-signup" href="index.html#community">Join</a>
+</div></header>
+<main>
+
+<section class="dd-hero"><div class="container">
+<p class="eyebrow">Pregnancy Tools</p>
+<h1 style="font-size:clamp(2rem,3vw,2.6rem)">When Will Your Baby Arrive?</h1>
+<p style="color:var(--muted);font-size:1.1rem;max-width:600px">Enter your last menstrual period to calculate your estimated due date, conception window, and complete pregnancy timeline.</p>
+</div></section>
+
+<section class="section"><div class="container"><div class="dd-layout">
+
+<!-- CALCULATOR -->
+<div class="dd-calc">
+<label for="lmp-date">First day of your last menstrual period (LMP)</label>
+<input type="date" id="lmp-date"/>
+<div class="calc-methods">
+<span style="font-size:0.82rem;color:var(--muted);margin-right:0.5rem">Method:</span>
+<button class="method-btn active" data-method="lmp">Last Period</button>
+<button class="method-btn" data-method="conception">Conception Date</button>
+<button class="method-btn" data-method="ivf">IVF Transfer</button>
+</div>
+<div id="ivf-options" style="display:none;margin-top:0.5rem">
+<label for="ivf-type" style="font-size:0.85rem">Transfer type:</label>
+<select id="ivf-type" style="padding:0.5rem 1rem;border-radius:999px;border:1.5px solid var(--border);font-family:inherit;margin-left:0.5rem">
+<option value="3day">3-day embryo transfer</option>
+<option value="5day">5-day (blastocyst) transfer</option>
+</select>
+<label for="ivf-date" style="font-size:0.85rem;margin-left:1rem">Transfer date:</label>
+<input type="date" id="ivf-date" style="width:auto;padding:0.6rem 1rem"/>
+</div>
+<button id="calc-btn" class="btn btn-primary" style="width:100%;margin-top:1.2rem;border:none;cursor:pointer;font-size:1.1rem;padding:1rem">Calculate My Due Date</button>
+
+<div class="dd-result" id="result">
+<p style="margin:0;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--muted)">Estimated Due Date</p>
+<div class="big-date" id="due-date-text"></div>
+<div class="meta-info" id="week-text"></div>
+<div id="tri-badge" style="margin-top:0.5rem"></div>
+</div>
+
+<div class="dd-result" id="timeline" style="background:var(--purple-soft)">
+<p style="font-weight:800;margin:0 0 0.8rem;color:var(--text)">Your Pregnancy Timeline</p>
+<div class="dd-timeline">
+<div class="tl-row"><span>First day of LMP</span><strong id="tl-lmp"></strong></div>
+<div class="tl-row"><span>Likely conception window</span><strong id="tl-conception"></strong></div>
+<div class="tl-row"><span>First trimester ends</span><strong id="tl-t1"></strong></div>
+<div class="tl-row"><span>Second trimester ends</span><strong id="tl-t2"></strong></div>
+<div class="tl-row"><span>Estimated due date</span><strong id="tl-due" style="color:var(--coral)"></strong></div>
+</div>
+</div>
+</div>
+
+<!-- INFO -->
+<div class="dd-info">
+<h2>How Is My Due Date Calculated?</h2>
+<p>Your estimated due date is calculated using <strong>Naegele's rule</strong> — the standard method used by obstetricians worldwide. It adds 280 days (40 weeks) to the first day of your last menstrual period.</p>
+<p>Only about <strong>4% of babies</strong> are born exactly on their due date. Most arrive within a window of two weeks before or after. Think of your due date as a helpful estimate — not a deadline.</p>
+
+<h3>What If I Don't Know My LMP Date?</h3>
+<p>If you're unsure about your last period date, your healthcare provider can estimate your due date using an early ultrasound, which measures the size of the developing embryo. First-trimester ultrasounds are the most accurate for dating a pregnancy.</p>
+
+<h3>What If My Cycles Are Irregular?</h3>
+<p>Naegele's rule assumes a 28-day cycle with ovulation on day 14. If your cycles are longer or shorter, your actual due date may differ. Mention irregular cycles to your provider so they can adjust accordingly.</p>
+
+<h2>The Three Trimesters</h2>
+<div class="tri-box tri-1st">
+<h4 style="margin:0 0 0.3rem;color:var(--teal)">First Trimester (Weeks 1–13)</h4>
+<p style="margin:0;font-size:0.92rem">The most critical period of development. Baby's major organs, spinal cord, and brain begin forming. You may experience fatigue, nausea, and breast tenderness. This is when most miscarriages occur, so rest and prenatal care are essential.</p>
+</div>
+<div class="tri-box tri-2nd">
+<h4 style="margin:0 0 0.3rem;color:var(--yellow-dark)">Second Trimester (Weeks 14–27)</h4>
+<p style="margin:0;font-size:0.92rem">Often called the "golden trimester." Energy returns, nausea typically subsides. You'll feel baby's first movements around weeks 18–22. The anatomy scan around week 20 checks baby's development in detail.</p>
+</div>
+<div class="tri-box tri-3rd">
+<h4 style="margin:0 0 0.3rem;color:var(--coral)">Third Trimester (Weeks 28–40)</h4>
+<p style="margin:0;font-size:0.92rem">Baby is growing rapidly, gaining weight, and preparing for birth. You may feel Braxton Hicks contractions. After 37 weeks, baby is considered full-term. Pack your hospital bag by week 35.</p>
+</div>
+
+<h2>Frequently Asked Questions</h2>
+<div class="faq-item"><h4>How accurate is this calculator?</h4><p>This calculator follows the same Naegele's rule that most OB-GYNs use. It's about 95% accurate within a ±2-week window. For a more precise estimate, ask your provider about a dating ultrasound.</p></div>
+<div class="faq-item"><h4>Can I calculate from conception date instead?</h4><p>Yes! Select "Conception Date" above. We'll add 266 days to estimate your due date. This method can be slightly more accurate if you know exactly when you ovulated.</p></div>
+<div class="faq-item"><h4>What if I conceived via IVF?</h4><p>Choose the "IVF Transfer" option above. For a 3-day embryo transfer, we calculate 263 days from the transfer date. For a 5-day blastocyst transfer, we use 261 days.</p></div>
+<div class="faq-item"><h4>Why 40 weeks when pregnancy is 9 months?</h4><p>Pregnancy is measured from the first day of your last period — about two weeks before conception actually occurs. So the <em>developmental</em> pregnancy is about 38 weeks, but the <em>clinical</em> measurement is 40 weeks.</p></div>
+</div>
+
+</div></div></section>
+</main>
+
+<footer class="site-footer"><div class="container footer-content">
+<p>&copy; 2026 The Wonder Moms. Made for families, with care.</p>
+<nav><a href="about.html">About</a> &middot; <a href="contact.html">Contact</a> &middot; <a href="privacy.html">Privacy Policy</a></nav>
+</div></footer>
+
+<script>
+const fmt=(d)=>d.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+const genTriBadge=(w)=>{
+  let t,c;if(w<13){t='First Trimester';c='tri-1st'}else if(w<27){t='Second Trimester';c='tri-2nd'}else{t='Third Trimester';c='tri-3rd'}
+  return `<span style="display:inline-block;padding:0.4rem 1rem;border-radius:999px;font-weight:700;font-size:0.88rem;background:${w<13?'var(--mint-soft)':w<27?'var(--yellow-soft)':'var(--coral-soft)'};color:${w<13?'var(--teal)':w<27?'#A67C00':'var(--coral)'}">${t} (Week ${w})</span>`;
+};
+
+document.getElementById('calc-btn').addEventListener('click',()=>{
+  const method=document.querySelector('.method-btn.active').dataset.method;
+  let refDate;
+  if(method==='lmp'){
+    const v=document.getElementById('lmp-date').value;if(!v)return;refDate=new Date(v+'T00:00:00');
+  }else if(method==='conception'){
+    const v=document.getElementById('lmp-date').value;if(!v)return;refDate=new Date(v+'T00:00:00');
+  }else{
+    const v=document.getElementById('ivf-date').value;if(!v)return;refDate=new Date(v+'T00:00:00');
+  }
+  if(isNaN(refDate.getTime()))return;
+
+  let due,lmpDate,conceptionStart,conceptionEnd;
+  if(method==='lmp'){
+    lmpDate=new Date(refDate);
+    due=new Date(refDate);due.setDate(due.getDate()+280);
+    conceptionStart=new Date(refDate);conceptionStart.setDate(conceptionStart.getDate()+11);
+    conceptionEnd=new Date(refDate);conceptionEnd.setDate(conceptionEnd.getDate()+17);
+  }else if(method==='conception'){
+    due=new Date(refDate);due.setDate(due.getDate()+266);
+    lmpDate=new Date(refDate);lmpDate.setDate(lmpDate.getDate()-14);
+    conceptionStart=new Date(refDate);conceptionEnd=new Date(refDate);
+  }else{
+    const embryoDays=document.getElementById('ivf-type').value==='3day'?3:5;
+    const ageOffset=embryoDays===3?263:261;
+    due=new Date(refDate);due.setDate(due.getDate()+ageOffset);
+    lmpDate=new Date(refDate);lmpDate.setDate(lmpDate.getDate()-(14+embryoDays));
+    conceptionStart=new Date(refDate);conceptionEnd=new Date(refDate);
+  }
+
+  const t1=new Date(lmpDate);t1.setDate(t1.getDate()+91);
+  const t2=new Date(lmpDate);t2.setDate(t2.getDate()+189);
+  const today=new Date();today.setHours(0,0,0,0);
+  const diffDays=Math.floor((today-lmpDate)/(86400000));
+  const weeks=Math.floor(diffDays/7);const days=diffDays%7;
+
+  document.getElementById('due-date-text').textContent=fmt(due);
+  document.getElementById('week-text').textContent=weeks>=0?`You are ${weeks} weeks and ${days} days pregnant today`:`Conception is about ${Math.abs(weeks)} weeks from now`;
+  document.getElementById('tri-badge').innerHTML=weeks>=0?genTriBadge(weeks):'';
+  document.getElementById('result').classList.add('show');
+
+  document.getElementById('tl-lmp').textContent=fmt(lmpDate);
+  document.getElementById('tl-conception').textContent=fmt(conceptionStart)+(conceptionEnd.getTime()!==conceptionStart.getTime()?' — '+fmt(conceptionEnd):'');
+  document.getElementById('tl-t1').textContent=fmt(t1);
+  document.getElementById('tl-t2').textContent=fmt(t2);
+  document.getElementById('tl-due').textContent=fmt(due);
+  document.getElementById('timeline').classList.add('show');
+});
+
+document.querySelectorAll('.method-btn').forEach(b=>{b.addEventListener('click',function(){
+  document.querySelectorAll('.method-btn').forEach(x=>x.classList.remove('active'));
+  this.classList.add('active');
+  const m=this.dataset.method;
+  document.getElementById('ivf-options').style.display=m==='ivf'?'block':'none';
+  const label=document.querySelector('label[for="lmp-date"]');
+  if(m==='lmp')label.textContent='First day of your last menstrual period (LMP)';
+  else if(m==='conception')label.textContent='Date of conception or ovulation';
+  else label.textContent='LMP date (before IVF treatment)';
+});});
+</script>
+</body>
+</html>
